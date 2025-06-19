@@ -14,7 +14,7 @@ In this project, we analyze supply chain data from a Fashion and Beauty startup,
     | Variable Name               | Description                                                                 |
     |----------------------------|-----------------------------------------------------------------------------|
     | `Product Type`               | The type of product represented in the supply chain data.                    |
-    | `SKU (Stock Keeping Unit)`   | A unique code used to identify a specific product.                           |
+    | `SKU`   | Stock Keeping Unit a unique code used to identify a specific product.                           |
     | `Price`                      | The selling price of the product.                                            |
     | `Availability`               | The current availability of the product (units in stock).                   |
     | `Number of Products Sold`    | The number of units sold during a specific time period.                      |
@@ -41,7 +41,7 @@ In this project, we analyze supply chain data from a Fashion and Beauty startup,
 ## Workflow Steps
 1. Import Libraries & Load Data
 2. Initial Data Overview
-3. Missing Value Analysis
+3. Data Cleaning & Formatting
 4. Univariate Analysis
 5. Bivariate/Multivariate Analysis
 6. Outlier Detection
@@ -54,7 +54,6 @@ In this project, we analyze supply chain data from a Fashion and Beauty startup,
 
 ```python
 # Importing the necessary libraries for data analysis and visualization.
-
 import pandas as pd
 import numpy as np 
 import seaborn as sns
@@ -64,7 +63,6 @@ import plotly.graph_objects as go
 
 
 # Load the dataset into a DataFrame using 'pandas'.
-
 df = pd.read_csv("supply-chain-analysis/supply_chain_data.csv")
 ```
 ---
@@ -102,20 +100,33 @@ df.describe()
 
 df.describe(include='object') ## Only categorical columns
 ```
-- This summary describe statistically the 15 columns of numerical and 9 columns of categorical variables.
--   All columns have no missin values with count of 100 and no negative values in numeric columns.
-- `Revenue generated` has high standard deviation shows some products have low and high sales.
-- `Defect rates` is the lowest standard deviation shows small number outputs failed to meet quality standards.
-- There are 3 type of products and skincare is the major type product sell
-- Road transportation mode is the major transportation to deliver to distribution centre or supplier
+- This summary describes statistical distribution of 15 numerical columns and 9 categorical columns.
+-   All columns have no missing values, with count of 100, the numerical columns contain no negative values.
+- The `Revenue generated` column has a high standard deviation, indicating that some products have very low while others have very high sales
+- The `Defect rates` column has the lowest standard deviation, suggesting that only a small portion of outputs failed to meet quality standards.
+- There are three product types, with skincare being the most commonly sold.
+- Road transportation is the primary mode used to deliver products to distribution centers or suppliers.
 
 
     ![IMAGE 3: SUMMARY STATISTIC 1](3_summary_stat1.png)
-    ![IMAGE 3: SUMMARY STATISTIC 2](4_summary_stat2.png)
-
-
-
-
+    ![IMAGE 4: SUMMARY STATISTIC 2](4_summary_stat2.png)
 
 
 ### 3. Data Cleaning & Formatting
+
+```python
+# Format all floating-point numbers in the table to display with 2 decimal places
+pd.set_option('display.float_format', lambda x: '%.2f' % x)
+
+# Rename columns for better clarity and convenience during analysis
+df.rename(columns={'Lead times': 'Supplier lead time', 'Lead time': 'Material lead time'}, inplace=True)
+
+# Double-check column renaming and decimal formatting
+df.describe()
+
+# Save cleaned data from Python to a CSV
+df.to_csv('supplychain_cleaned_data.csv', index=False)
+```
+ -  Download Link for cleaned data: [*Supply Chain Cleaned Data*](https://www.kaggle.com/datasets/lyhatt/house-prices-in-malaysia-2025/data)
+
+"C:\Git\draft_EDA_supplychain\supplychain_cleaned_data.csv"
