@@ -109,6 +109,7 @@ df.describe(include='object') ## Only categorical columns
 
 
     ![IMAGE 3: SUMMARY STATISTIC 1](3_summary_stat1.png)
+    
     ![IMAGE 4: SUMMARY STATISTIC 2](4_summary_stat2.png)
 
 
