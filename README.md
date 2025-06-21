@@ -109,10 +109,10 @@ df.describe(include='object') ## Only categorical columns
 
 
     ![IMAGE 3: SUMMARY STATISTIC 1](3_summary_stat1.png)
-    
+
     ![IMAGE 4: SUMMARY STATISTIC 2](4_summary_stat2.png)
 
-
+---
 ### 3. Data Cleaning & Formatting
 
 ```python
@@ -128,6 +128,79 @@ df.describe()
 # Save cleaned data from Python to a CSV
 df.to_csv('supplychain_cleaned_data.csv', index=False)
 ```
- -  Download Link for cleaned data: [*Supply Chain Cleaned Data*](https://www.kaggle.com/datasets/lyhatt/house-prices-in-malaysia-2025/data)
+ -  Download Link for cleaned data: [*Supply Chain Cleaned Data*](https://github.com/azerinnan/draft_EDA_supplychain/blob/main/supplychain_cleaned_data.csv)
+- Below snapshot for cleaned numeric columns :
+![IMAGE 5: SUMMARY STATISTIC 2](5_summary_stat_cleaned.png)
 
-"C:\Git\draft_EDA_supplychain\supplychain_cleaned_data.csv"
+---
+### 4. Univariate Analysis
+
+This section will examine the distribution of individual variables to understand their spread and frequency which helps to identify skewness, outliers and potential data transformation needs.
+
+-   Numeric variables are visualized by histograms and skewness analysis to understand their distribution.
+- Categorical variables are visualized by bar charts to determine the most frequent categories.
+---
+```python
+# Histogram and skewness for numerical variable
+
+from scipy.stats import skew
+
+# Calculate skewness of Revenue generated
+skew_revenue = skew(df["Revenue generated"])
+
+# Plot distribution with KDE (smoothed line)
+plt.figure(figsize=(8, 5))
+sns.histplot(df["Revenue generated"], kde=True, bins=20, color='darksalmon')
+plt.title(f"Distribution of revenue (Skewness={skew_revenue:.2f})")
+plt.xlabel("Revenue Generated")
+plt.ylabel("Frequency")
+plt.show()
+
+# Print skewness
+print(f"Skewness of revenue generated: {skew_revenue:.2f}")
+```
+![IMAGE 6: HISTOGRAM SKEW](6_histo_skew_revenue.png)
+- Based on the distribution of `Revenue Generated`, the data slightly skew to the left since skewness is -0.17 and very close to 0 then it almost normally distributed.
+- The histogram shows bimodal distribution with the first peak around 2,500 Rupee and the second peak around 8,000 Rupee
+- The `Revenue Generated` data set shows 2 distinct revenue groups where there are low to mid revenue transactions and high value transactions.
+---
+
+![IMAGE 6: HISTOGRAM SKEW](7_histo_skew_shippingtimes.png)
+- The distribution of `Shipping Times` is left-skewed with skewness of -0.28 which is close to normal distribution.
+- According to the histogram, the most common shipping time from distribution centre to customer is aroud 8 days while the shortest is approxiamately 2 to 4 days.
+- Deliveries about 2-4 days indicate the shipments to nearby locations and reflect operational efficiency in certain regions.
+- Since the most shipping time around 8 days, it considered as slow potentially, lead to customer dissatisfaction. Collecting and analyzing customer feedback can help to identify areas for service improvement.
+---
+```python
+# Bar chart for categorical variable
+
+
+# Count the frequency of each type in Product type
+count_type = df['Product type'].value_counts().reset_index()
+
+# Rename columns for clarity
+count_type.columns = ['Product Type', 'Count']
+
+# Create figure and axes for the plot
+fig, ax = plt.subplots(figsize=(8, 5))
+
+# Create a bar plot to show the count of each product type
+sns.barplot(
+    x=count_type['Product Type'],
+    y=count_type['Count'],
+    hue=count_type['Product Type'],
+    palette="Blues", ax=ax)
+
+# Set labels and title on axes
+ax.set_title("Bar Plot of Product Type")
+ax.set_xlabel("Product Type") 
+ax.set_ylabel("Count")
+
+# Display the plot
+plt.show()
+```
+
+
+
+
+
