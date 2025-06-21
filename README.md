@@ -46,7 +46,7 @@ In this project, we analyze supply chain data from a Fashion and Beauty startup,
 5. Bivariate/Multivariate Analysis
 6. Outlier Detection
 7. Data Quality Summary
-8. Save Cleaned Dataset
+
 
 ## Exploratory Data Analysis (EDA)
 
@@ -165,7 +165,7 @@ print(f"Skewness of revenue generated: {skew_revenue:.2f}")
 - The `Revenue Generated` data set shows 2 distinct revenue groups where there are low to mid revenue transactions and high value transactions.
 ---
 
-![IMAGE 6: HISTOGRAM SKEW](7_histo_skew_shippingtimes.png)
+![IMAGE 7: HISTOGRAM SKEW](7_histo_skew_shippingtimes.png)
 - The distribution of `Shipping Times` is left-skewed with skewness of -0.28 which is close to normal distribution.
 - According to the histogram, the most common shipping time from distribution centre to customer is aroud 8 days while the shortest is approxiamately 2 to 4 days.
 - Deliveries about 2-4 days indicate the shipments to nearby locations and reflect operational efficiency in certain regions.
@@ -174,17 +174,16 @@ print(f"Skewness of revenue generated: {skew_revenue:.2f}")
 ```python
 # Bar chart for categorical variable
 
-
-# Count the frequency of each type in Product type
+# Count the frequency of each type in Product Type
 count_type = df['Product type'].value_counts().reset_index()
 
 # Rename columns for clarity
 count_type.columns = ['Product Type', 'Count']
 
-# Create figure and axes for the plot
+# Create figure and axes for the chart
 fig, ax = plt.subplots(figsize=(8, 5))
 
-# Create a bar plot to show the count of each product type
+# Create a bar chart to show the count of each product type
 sns.barplot(
     x=count_type['Product Type'],
     y=count_type['Count'],
@@ -199,6 +198,20 @@ ax.set_ylabel("Count")
 # Display the plot
 plt.show()
 ```
+![IMAGE 8: BAR CHART](8_bar_producttype.png)
+
+- The company sells three types of products, with skincare having the highest number of SKUs, followed by haircare and cosmetics.
+- This suggests skincare is the company's main product focus.
+
+---
+
+![IMAGE 9: BAR CHART](9_bar_demographic.png)
+
+- Based on the bar plot, most SKUs are associated with an unknown customer demographic, followed by female, non-binary, and male customers.
+- Products labeled with 'Unknown' in the customer demographics may indicate items that are used by any gender and potentially suitable for all age groups, including children.
+---
+
+### 5. Bivariate/Multivariate Analysis
 
 
 
