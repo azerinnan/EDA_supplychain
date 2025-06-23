@@ -128,7 +128,7 @@ df.describe()
 # Save cleaned data from Python to a CSV
 df.to_csv('supplychain_cleaned_data.csv', index=False)
 ```
- -  Download Link for cleaned data: [*Supply Chain Cleaned Data*](https://github.com/azerinnan/draft_EDA_supplychain/blob/main/supplychain_cleaned_data.csv)
+
 - Below snapshot for cleaned numeric columns :
 ![IMAGE 5: SUMMARY STATISTIC 2](5_summary_stat_cleaned.png)
 
@@ -211,9 +211,91 @@ plt.show()
 - Products labeled with 'Unknown' in the customer demographics may indicate items that are used by any gender and potentially suitable for all age groups, including children.
 ---
 
-### 5. Bivariate/Multivariate Analysis
+### 5. Bivariate and Multivariate Analysis
+
+#### Bivariate Analysis
+
+To indentify the relationship between variables, three functions will be define, based on the types of varables: categorical and numerical with continous variables. 
+
+Function will be define based on type of variable: 
+ - Scatter plot, Pearson and Spearman correlation will be used to determine the relationship between continous numerical variables.
+ - The Chi Square test will be used to check the relationship between categorical variables.
+ - The ANOVA test will be used to determine relationship between categorical and numerical variables.
 
 
+```python
+# Import library
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from scipy.stats import pearsonr, spearmans, chi2_contingency
+```
 
+```python
+# Bivariate analysis between numerical variables (Correlation & Scatter Plot)
+def numerical_bivariate_analysis(df, var1, var2):
+    print(f"Pearson Correlation: {pearsonr(df[var1], df[var2])}")
+    print(f"Spearman Correlation: {spearmanr(df[var1], df[var2])}")
 
+    plt.figure(figsize=(8, 5))
+    sns.scatterplot(data=df, x=var1, y=var2)
+    plt.title(f'Scatter Plot of {var1} vs {var2}')
+    plt.show()
 
+# Bivariate analysis between numerical & categorical variable (Boxplot & ANOVA)
+def categorical_numerical_analysis(df, cat_var, num_var):
+    plt.figure(figsize=(15,8))
+    sns.boxplot(data=df, x=cat_var, y=num_var)
+    plt.title(f'Boxplot of {num_var} by {cat_var}')
+    plt.show()
+
+# Bivariate analysis between categorical variables (Chi-square test)
+def categorical_bivariate_analysis(df, var1, var2):
+    contingency_table = pd.crosstab(df[var1], df[var2])
+    chi2, p, dof, expected = chi2_contingency(contingency_table)
+    print(f"Chi-square Test: Chi2={chi2}, p-value={p}")
+
+    plt.figure(figsize=(8, 5))
+    sns.heatmap(contingency_table, annot=True, cmap="Blues", fmt='d')
+    plt.title(f'Heatmap of {var1} vs {var2}')
+    plt.show()
+```
+---
+
+`Production volumes` vs `Manufacturing lead time`
+
+```python
+numerical_bivariate_analysis(df,'Production volumes','Manufacturing lead time')
+```
+Output:
+
+ ![IMAGE 10: BAR CHART](10_bivariate_num.png)
+
+-   Both Pearson and Spearman correlation analyses and the p values greater than 0.05 show no statistically significant relationship between the variables. 
+- The correlation coefficient are low and and the scatter plot shows no liner or monotonic trend and therefore there are no relationship between the variables.
+
+Overall, a correlation anlysis was conducted to exploe the relationship between all numerical variables using scatter plot, Pearson and Spearman corelation tests.
+
+Across all variables, no statistically significant relationship were found since the p-values exceeding 0.05. Then, all the numerical variables operate independently. As a result, other analytical methods may be use for appropiate  for identifying patterns in the data. 
+
+---
+`Shipping carriers` vs `NUmber of product sold`
+
+```python
+categorical_numerical_analysis(df,'Shipping carriers','Number of products sold')
+```
+![IMAGE 11: BAR CHART](11_bivariate_cat_num.png)
+
+---
+`Product type` vs `Customer demographics`
+
+```python
+categorical_bivariate_analysis(df,'Product type','Customer demographics')
+```
+
+![IMAGE 12: BAR CHART](12_bivariate_cat.png)
+
+---
+### 8. cleaned data
+ -  Download Link for cleaned data: [*Supply Chain Cleaned Data*](https://github.com/azerinnan/draft_EDA_supplychain/blob/main/supplychain_cleaned_data.csv)
