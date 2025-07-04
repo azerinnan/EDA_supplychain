@@ -1,4 +1,4 @@
-# Exploratory Data Analysis (EDA) – Supply Chain Dataset (Makeup Products)
+# Exploratory Data Analysis (EDA) – Supply Chain Dataset (Cosmetics, Hair Care, and Skin Care Products)
 
 ## Project Overview & Objective
 This project conduct a full exploratory data analysis (EDA) to understand data types, distributions, missing values, outliers, and relationships between variables in a supply chain dataset. The EDA will act as a foundation for future objective-specific analyses and projects.
