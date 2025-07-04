@@ -1,9 +1,9 @@
-# Exploratory Data Analysis (EDA) – Supply Chain Dataset (Cosmetics, Hair Care, and Skin Care Products)
+# Exploratory Data Analysis (EDA) of Supply Chain
 
 ## Project Overview & Objective
 This project conduct a full exploratory data analysis (EDA) to understand data types, distributions, missing values, outliers, and relationships between variables in a supply chain dataset. The EDA will act as a foundation for future objective-specific analyses and projects.
 
-The analyis focuses on supply chain data from a fashion and beauty startup, analyzes the movement and performance of products across different operational stages — from suppliers to customers.
+The analysis focuses on supply chain data from a fashion and beauty startup, analyzes the movement and performance of products across different operational stages — from suppliers to customers.
 
 ## Data Source
 - Dataset Name: Supply Chain Data
@@ -446,7 +446,7 @@ Here the download link for cleaned data: [*Supply Chain Cleaned Data*](https://g
 
 ## Conclusion
 
-- Skincare is the  most of product sold by the company.
+- Skincare is the product type with the highest number of SKUs sold by the company.
 - All numeric data is formated to two decimal places for consistency, and columns are rename to `Supplier lead time` and `Material lead time`.
 - The distribution of `Shipping time` is skewed to the left, indicating most shipment take  around 8 days.
 - The **Unknown** customer demographic has the highest SKUs. 
