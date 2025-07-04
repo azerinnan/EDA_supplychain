@@ -446,7 +446,7 @@ Here the download link for cleaned data: [*Supply Chain Cleaned Data*](https://g
 
 ## Conclusion
 
-- Skincare is the product type with the highest number of SKUs sold by the company.
+- **Skincare** is the product type with the highest number of SKUs sold by the company.
 - All numeric data is formated to two decimal places for consistency, and columns are rename to `Supplier lead time` and `Material lead time`.
 - The distribution of `Shipping time` is skewed to the left, indicating most shipment take  around 8 days.
 - The **Unknown** customer demographic has the highest SKUs. 
