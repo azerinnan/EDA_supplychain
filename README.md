@@ -1,9 +1,9 @@
 # Exploratory Data Analysis (EDA) – Supply Chain Dataset (Makeup Products)
 
 ## Project Overview & Objective
-Conduct a full exploratory data analysis (EDA) to understand data types, distributions, missing values, outliers, and relationships between variables in a supply chain dataset. This EDA will act as a foundation for future objective-specific projects.
+This project conduct a full exploratory data analysis (EDA) to understand data types, distributions, missing values, outliers, and relationships between variables in a supply chain dataset. The EDA will act as a foundation for future objective-specific analyses and projects.
 
-In this project, we analyze supply chain data from a Fashion and Beauty startup, specifically focusing on the movement and performance of makeup products across different operational stages — from suppliers to customers.
+The analyis focuses on supply chain data from a fashion and beauty startup, analyzes the movement and performance of products across different operational stages — from suppliers to customers.
 
 ## Data Source
 - Dataset Name: Supply Chain Data
@@ -65,8 +65,7 @@ df = pd.read_csv("supply-chain-analysis/supply_chain_data.csv")
 ```
 ---
 ### 2. Initial Data Overview
-
-Inspect the dataset to understand its structure, data type, and identify any missing value:
+Inspect the dataset to understand its structure, data type, and identify any missing values:
 
 ```python
 # Check the number of rows and columns
@@ -80,15 +79,16 @@ df.shape
 df.head()
 ```
 -   The first five rows provide a snapshot of the dataset structure, and all columns appear to be correctly typed.
-- However, some currency-related data shows more than two decimal places and will be converted for consistency.   
-    ![IMAGE 1: TOP 5 RECORDS](1_top5_records.png)
+- Some currency-related data shows more than two decimal places and will be converted for consistency.  
+
+![IMAGE 1: TOP 5 RECORDS](1_top5_records.png)
 
 ```python
 # Check data type and null counts
 df.info()
 ```
--   All data types are appropriate, and there are no missing values.
-- However, the column names **'Lead times'** (receive product from suppliers) and **'Lead Time'** (for manufacturer receive raw materials) may cause confusion.
+-   All data types are appropriate, and the dataset contains no missing values.
+- The column names **'Lead times'** (supplier product receipt) and **'Lead Time'** (manufacturer raw materials receipt) may cause confusion.
 To improve clarity, both columns will be renamed
 
     <img src="2_data_info.png" width="40%"/> 
@@ -98,12 +98,12 @@ df.describe()
 
 df.describe(include='object') ## Only categorical columns
 ```
-- This summary describes statistical distribution of 15 numerical columns and 9 categorical columns.
--   All columns have no missing values, with count of 100, the numerical columns contain no negative values.
-- The `Revenue generated` column has a high standard deviation, indicating that some products have very low while others have very high sales
-- The `Defect rates` column has the lowest standard deviation, suggesting that only a small portion of outputs failed to meet quality standards.
-- There are three product types, with skincare being the most commonly sold.
-- Road transportation is the primary mode used to deliver products to distribution centers or suppliers.
+- The summary describes statistical distribution of 15 numerical columns and 9 categorical columns.
+-   All columns contains no missing values, each has a count of 100. The numerical columns contain no negative values.
+- The `Revenue generated` column shows a high standard deviation, indicating that some products generate very low sales while others generate very high sales.
+- The `Defect rates` column has the lowest standard deviation, suggesting that only a small portion of outputs fail to meet quality standards.
+- There are three product types, with **skincare** being the most commonly sold.
+- **Road transportation** is the primary mode used to deliver products from factory to distribution center.
 
 
     ![IMAGE 3: SUMMARY STATISTIC 1](3_summary_stat1.png)
@@ -127,8 +127,12 @@ df.describe()
 df.to_csv('supplychain_cleaned_data.csv', index=False)
 ```
 
-- Below snapshot for cleaned numeric columns :
+Output:
+
 ![IMAGE 5: SUMMARY STATISTIC 2](5_summary_stat_cleaned.png)
+
+- All floating number display two decimal places for consistency.
+- The columns 'Lead times' and 'Lead time' are renamed to `Supplier lead time` and `Material lead time` to avoid confusion.
 
 ---
 ### 4. Univariate Analysis
@@ -166,7 +170,7 @@ print(f"Skewness of revenue generated: {skew_revenue:.2f}")
 ![IMAGE 7: HISTOGRAM SKEW](7_histo_skew_shippingtimes.png)
 - The distribution of `Shipping Times` is left-skewed with skewness of -0.28 which is close to normal distribution.
 - According to the histogram, the most common shipping time from distribution centre to customer is aroud 8 days while the shortest is approxiamately 2 to 4 days.
-- Deliveries about 2-4 days indicate the shipments to nearby locations and reflect operational efficiency in certain regions.
+- Deliveries about 2 to 4 days indicate the shipments to nearby locations and reflect operational efficiency in certain regions.
 - Since the most shipping time around 8 days, it considered as slow potentially, lead to customer dissatisfaction. Collecting and analyzing customer feedback can help to identify areas for service improvement.
 ---
 ```python
@@ -211,12 +215,12 @@ plt.show()
 
 ### 5. Bivariate Analysis
 
-To identify the relationship between two variables, three functions will be define, based on the types of variables which are categorical and numerical with continous variables. 
+To identify the relationship between two variables, three functions are defined based on the types of variables which are categorical and numerical with continous variables. 
 
-Function will be define based on type of variable: 
- - Scatter plot, Pearson and Spearman correlation will be used to determine the relationship between continous numerical variables.
- - The Chi-Square test will be used to check the relationship between categorical variables.
- - The ANOVA test will be used to determine relationship between categorical and numerical variables.
+Function are structured as follows: 
+ - **Scatter plot**, **Pearson correlation** and **Spearman correlation** determine the relationships between continous numerical variables.
+ - The **Chi-Square test** check the relationships between categorical variables.
+ - The **ANOVA test** determine relationship between categorical and numerical variables.
 
 
 ```python
@@ -281,12 +285,12 @@ Output:
 
  ![IMAGE 10: SCATTER PLOT](10_bivariate_num.png)
 
--   Both Pearson and Spearman correlation analyses and the p-values greater than 0.05, show no statistically significant relationship between the variables. 
-- The correlation coefficient are low, and the scatter plot shows no liner or monotonic trend; therefore there is no relationship between the variables.
+-   Both **Pearson** and **Spearman** correlation analyses and the p-values greater than 0.05, show no statistically significant relationship between the variables. 
+- The correlation coefficient are low, and the scatter plot shows no linear or monotonic trend. Therefore, there is no relationship exists between the variables.
 
-Overall, a correlation anlysis was conducted to explore the relationship between all numerical variables using scatter plot, Pearson and Spearman correlation tests.
+Overall, correlation anlysis explores the relationship between all numerical variables using scatter plot, Pearson and Spearman correlation tests.
 
-Across all variables, no statistically significant relationship were found, as the p-values exceeded 0.05. Then, all the numerical variables operate independently. As a result, other analytical methods may be use for appropiate  for identifying patterns in the data. 
+Across all variables, no statistically significant relationship are found, as the p-values exceeded 0.05. All the numerical variables operate independently. As a result, other analytical methods may be more appropiate for identifying patterns in the data. 
 
 ---
 ### `Shipping carriers`  vs  `Number of product sold`
@@ -298,15 +302,15 @@ Output:
 
 ![IMAGE 11: BOX PLOT](11_bivariate_cat_num.png)
 
-The ANOVA test and p-value indicate a statistically significant difference in the number of products sold accross shipping carriers.
+The **ANOVA test** and p-value indicate a statistically significant difference in the number of products sold accross shipping carriers.
 
--   Carrier A shows highest median number of product sold compared to Carrier B and C.
+-   **Carrier A** shows highest median number of product sold compared to **Carrier B** and **Carrier C**.
 
--   Carrier C has longer upper whisker, indicating greater variability above median. All shipping carriers have no outlier as the values remain within the ranges.
+-   **Carrier C** has longer upper whisker, indicating greater variability above the median. All shipping carriers have no outliers as the values remain within the ranges.
 
--   The Box for carrier A is wider indicating greater variation (larger interquartile range) in the number of products sold compared to Carrier B and C.
+-   The box for **Carrier** A is wider indicating greater variation (larger interquartile range) in the number of products sold compared to **Carrier B** and **Carrier C**.
 
-This reveals that Carrier A consistently manages more varied shipment sizes while Carrier C occasionally handles large shipment size. These could guide shipping strategy optimization to align selection of carrier with order size patterns.
+This analysis reveals that **Carrier A** consistently manages more varied shipment sizes, while **Carrier C** occasionally handles large shipment sizes. These can guide shipping strategy optimization to align selection of carrier with order size patterns.
 
 ---
 ### `Product type` vs `Customer demographics`
@@ -318,20 +322,20 @@ Output:
 
 ![IMAGE 12: HEAT MAP](12_bivariate_cat.png)
 
-For categorical bivariate analysis, the variables are statistically significant where the p-value is less than 0.05.
+For categorical bivariate analysis, variables are statistically significant where the p-value is less than 0.05.
 
-- Based on the product designed for different customer demographics, the Unknown category includes the highest number of  haircare SKUs sold by the company, followed by Male and Non-Binary categories. Female category has the lowest number of hair care SKUs.
+- Based on the product designed for different customer demographics, the **Unknown** category includes the highest number of  haircare SKUs sold by the company, followed by **Male** and **Non-Binary** categories. **Female** category has the lowest number of haircare SKUs.
 
-- For skincare, Female category  has the highest number of SKUs, followed by Non-binary, Unknown and Male categories. 
+- For skincare, the **Female** category  has the highest number of SKUs, followed by **Non-binary**, **Unknown** and **Male** categories. 
 
-- Similar to skincare, Female product category also dominates the number of Cosmetics SKUs. followed by the Unknown category.
+- Similar to skincare, the **Female** product category also dominates the number of cosmetics SKUs, followed by the **Unknown** category.
 
-These findings highlight how the company’s product offerings are distributed across customer demographics and can support decisions in product development or targeted marketing.
+These findings highlight how the company’s product offerings are distribute across customer demographics and support decisions in product development or targeted marketing.
 
 ---
 ### 6. Multivariate Analysis
 
-In this section, a heat map was created to visualize the correlation and strength of relationships. The gradient colors indicate positive, negative or no correlation which providing an overview of how the variables relate.
+In this section, a heat map visualizes the correlation and strength of relationships. The gradient colors indicate positive, negative or no correlation which providing an overview of how the variables relate.
 
 ```python
 sns.heatmap(df.corr(numeric_only=True), annot = True)
@@ -345,15 +349,108 @@ Output:
 ![IMAGE 13: HEAT MAP 2](13_matrix_corr.png)
 
 
-- The correlation matrix shows all variables have weak linear relationship, where the coefficients between -0.3 and +0.3. This indicates that no strong linear correlation exists among the variables.
+- The correlation matrix shows that all variables have weak linear relationship, where the coefficients between **-0.3** and **+0.3**. This indicates that no strong linear correlation exists among the variables.
 
-Despite the linear correlation, the variables remain valuable for EDA to explore distributions, group differences, and potential non-linear patterns.
+Despite the weak linear correlations, the variables remain valuable for EDA to explore distributions, group differences, and potential non-linear patterns.
 
 ---
 ### 7. Outlier detection
 
-The Interquartile Range (IQR) method is used to detect outliers in variables. Data points are labelled as outliers if they fall below Q1 minus 1.5 times the IQR or above Q3 plus 1.5 times the IQ, where IQR = Q3 - Q1 . This method is simple and fit skewed business data.
+The Interquartile Range (IQR) method detects outliers in numerical variables. Data points are labelled as outliers if they fall below **Q1 - 1.5 x IQR** or above **Q3 + 1.5 x IQR**, where **IQR = Q3 - Q1**. This method is simple and fit skewed business data.
+
+The function is defined as below:
+```python
+def detect_outliers_iqr(df, num_var):
+    # Calculate Q1 and Q3
+    Q1 = df[num_var].quantile(0.25)
+    Q3 = df[num_var].quantile(0.75)
+    IQR = Q3 - Q1
+    
+    # Determine the outlier boundaries
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    
+    # Filter outliers
+    outliers = df[(df[num_var] < lower_bound) | (df[num_var] > upper_bound)]
+    
+    # Print summary
+    print(f"Q1: {Q1}, Q3: {Q3}, IQR: {IQR}")
+    print(f"Lower Bound: {lower_bound}, Upper Bound: {upper_bound}")
+    print(f"Number of outliers in {num_var}: {outliers.shape[0]}")
+
+outliers = detect_outliers_iqr(df,'Supplier lead time')
+```
+Output:
+```
+Q1: 8.0, Q3: 24.0, IQR: 16.0
+Lower Bound: -16.0, Upper Bound: 48.0
+Number of outliers in Supplier lead time: 0
+```
+
+-  The `Supplier lead time`  variable is determined for outliers using the IQR method. All data points fall within lower and upper bounds, indicating no outliers in this variable.
+
+Overall, no outliers are detected across all the variables, then no data is removed.
+
 
 ---
 ### 8. Cleaned data
- -  Download Link for cleaned data: [*Supply Chain Cleaned Data*](https://github.com/azerinnan/draft_EDA_supplychain/blob/main/supplychain_cleaned_data.csv)
+
+In this section, data quality summary shows whether any of the variables have missing values, duplicates and outliers.
+
+For outliers, the IQR method is applied in the previous step (Outlier Detection). This section summarizes the outliers detected and actions taken.
+
+```python
+# Check missing values
+df.isnull().sum()
+
+# Check duplicate rows
+df.duplicated().sum()
+```
+
+Summary:
+
+| Variable             | % Missing | Duplicates | Outliers | Action Taken       |
+| ------------------------- | --------- | ---------- | -------- | ------------------ |
+| `Product Type`            | 0%        | 0%         | 0        | No action needed   |
+| `SKU`                     | 0%        | 0%         | 0        | No action needed   |
+| `Price`                   | 0%        | 0%         | 0        | No action needed |
+| `Availability`            | 0%        | 0%         | 0        | No action needed   |
+| `Number of products sold` | 0%        | 0%         | 0        | No action needed |
+| `Revenue generated`       | 0%        | 0%         | 0        | No action needed |
+| `Customer demographics`   | 0%        | 0%         | 0        | No action needed   |
+| `Stock levels`            | 0%        | 0%         | 0        | No action needed   |
+| `Supplier lead time`      | 0%        | 0%         | 0        | No action needed   |
+| `Order quantities`        | 0%        | 0%         | 0        | No action needed |
+| `Shipping times`          | 0%        | 0%         | 0        | No action needed |
+| `Shipping carriers`       | 0%        | 0%         | 0        | No action needed   |
+| `Shipping costs`          | 0%        | 0%         | 0        | No action needed  |
+| `Supplier name`           | 0%        | 0%         | 0        | No action needed   |
+| `Location`                | 0%        | 0%         | 0        | No action needed   |
+| `Material lead time`      | 0%        | 0%         | 0        | No action needed   |
+| `Production volumes`      | 0%        | 0%         | 0        | No action needed  |
+| `Manufacturing lead time` | 0%        | 0%         | 0        | No action needed   |
+| `Manufacturing costs`     | 0%        | 0%         | 0        | No action needed  |
+| `Inspection results`      | 0%        | 0%         | 0        | No action needed   |
+| `Defect rates`            | 0%        | 0%         | 0        | No action needed  |
+| `Transportation modes`    | 0%        | 0%         | 0        | No action needed   |
+| `Routes`                  | 0%        | 0%         | 0        | No action needed   |
+| `Costs`                   | 0%        | 0%         | 0        | No action needed |
+
+
+
+The data quality check found no missing values, duplicates, or outliers across all variables. Therefore, no data cleaning action was required.
+
+Here the download link for cleaned data: [*Supply Chain Cleaned Data*](https://github.com/azerinnan/draft_EDA_supplychain/blob/main/supplychain_cleaned_data.csv)
+
+---
+
+## Conclusion
+
+- Skincare is the  most of product sold by the company.
+- All numeric data is formated to two decimal places for consistency, and columns are rename to `Supplier lead time` and `Material lead time`.
+- The distribution of `Shipping time` is skewed to the left, indicating most shipment take  around 8 days.
+- The **Unknown** customer demographic has the highest SKUs. 
+- Bivariate analysis shows a significant relationship between `Product type` vs `Customer demographics`, but no significant correlation found between numerical variables.
+- Outlier detection using IQR method finds no outlier, no missing values and no duplicate row are detected.
+
+EDA provides a comprehensive understanding of the data set and identify relationship between variables. Outlier detection and data and data quality check confir that the data is clean and suitable for further analysis, and ready for deeper business insights.
