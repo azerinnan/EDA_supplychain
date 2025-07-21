@@ -21,7 +21,7 @@ The analysis focuses on supply chain data from a fashion and beauty startup, ana
     | `Revenue Generated`          | The total revenue generated from product sales over a specific period.       |
     | `Customer Demographics`      | Information about customer characteristics, such as age, gender, and location.|
     | `Stock Levels`               | The number of units currently available in stock.                            |
-    | `Lead Times`                 | The time required to order or receive products from suppliers.               |
+    | `Lead Times`                 | The time required to order or distribution centre receive products from suppliers.               |
     | `Order Quantities`           | The number of units ordered in a single purchase or shipment.                |
     | `Shipping Times`             | The duration required to ship products to customers.                         |
     | `Shipping Carriers`          | The companies or services used to deliver products.                          |
@@ -453,4 +453,4 @@ Here the download link for cleaned data: [*Supply Chain Cleaned Data*](https://g
 - Bivariate analysis shows a significant relationship between `Product type` vs `Customer demographics`, but no significant correlation found between numerical variables.
 - Outlier detection using IQR method finds no outlier, no missing values and no duplicate row are detected.
 
-EDA provides a comprehensive understanding of the data set and identify relationship between variables. Outlier detection and data and data quality check confir that the data is clean and suitable for further analysis, and ready for deeper business insights.
+EDA provides a comprehensive understanding of the data set and identify relationship between variables. Outlier detection and data quality check confirm that the data is clean and suitable for further analysis, and ready for deeper business insights.
